@@ -94,7 +94,7 @@
     "no-shadow": [ "error", {
       "builtinGlobals": true
     }],
-    "no-return-assign": [ "error", "always" ],
+    "no-return-assign": [ "error", "except-parens" ],
     "no-return-await": [ "error" ],
     "no-self-assign": [ "error", {
       "props": true
