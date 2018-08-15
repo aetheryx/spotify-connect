@@ -1,43 +1,46 @@
 const { Client } = require('eris');
 const { log, mergeDefaults } = require('@sc/utils/');
 
+const pkg       = require(`${__dirname}/../package.json`);
 const events    = require(`${__dirname}/events/`);
 const createDB  = require(`${__dirname}/db/`);
 const commands  = require(`${__dirname}/commands/`);
-const createAPI = require(`${__dirname}/api/`);
+const createAPI = require(`${__dirname}/web/`);
 
 module.exports = class SpotifyConnect extends Client {
   constructor (config) {
-    super(config.token, {
+    super(config.BOT_TOKEN, {
       // TODO: client config
     });
 
+    this.pkg = pkg;
     this.config = config;
     this.db = null;
     this.commands = new Map();
-    this.aliases = new Map();
+    this.commandTriggers = new Map();
   }
 
   async init () {
     log('Booting...');
 
-    this.connect();
-    this.loadCommands();
-
     for (const event of events) {
       this[event.type](event.name, event.listener.bind(this));
     }
 
-    this.db = await createDB(this);
-    createAPI(this);
+    await this.connect();
 
-    log(`Successfully initiated in ${process.uptime().toFixed(2)}s.`);
+    this.once('ready', async () => {
+      this.db = await createDB(this);
+      await this.loadCommands();
+      await createAPI.call(this);
+      log(`Successfuly initiated in ${process.uptime().toFixed(2)}s.`);
+    });
   }
 
   async loadCommands () {
     for (const command of commands) {
       mergeDefaults(command, {
-        bot: this,
+        main: this,
         usage: '{c}',
         examples: [],
         ownerOnly: false
@@ -45,12 +48,9 @@ module.exports = class SpotifyConnect extends Client {
 
       this.commands.set(command.triggers[0], command);
 
-      for (const trigger of command.triggers.slice(1)) {
-        this.aliases.set(trigger, command.triggers[0]);
+      for (const trigger of command.triggers) {
+        this.commandTriggers.set(trigger, command.triggers[0]);
       }
     }
-
-    console.log(this.commands.get('ping').execute());
-    
   }
 };
