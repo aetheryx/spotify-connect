@@ -21,6 +21,13 @@ module.exports = {
     });
   },
 
+  refreshToken (refresh_token) {
+    return this.getOrRefreshToken({
+      grant_type: 'refresh_token',
+      refresh_token
+    });
+  },
+
   pause (link) {
     return put(`${this.BASE_URL}/me/player/pause`)
       .set('Authorization', `Bearer ${link.auth.access_token}`);
@@ -31,9 +38,31 @@ module.exports = {
       .set('Authorization', `Bearer ${link.auth.access_token}`);
   },
 
+  next (link) {
+    return post(`${this.BASE_URL}/me/player/next`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`);
+  },
+
+  prev (link) {
+    return post(`${this.BASE_URL}/me/player/previous`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`);
+  },
+
   getPlayer (link) {
     return get(`${this.BASE_URL}/me/player`)
       .set('Authorization', `Bearer ${link.auth.access_token}`)
       .then(r => r.body);
+  },
+
+  getDevices (link) {
+    return get(`${this.BASE_URL}/me/player/devices`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .then(r => r.body);
+  },
+
+  setVolume (link, volume) {
+    return put(`${this.BASE_URL}/me/player/volume`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .query('volume_percent', volume);
   }
 };

@@ -10,9 +10,9 @@ module.exports = ({ embed }) => {
       const split = embed.title.split(' ');
       emoji = `${split.shift()} `;
       embed.title = split.join(' ');
-    } else {
-      output += `${emoji}**__${embed.title}__**\n\n`;
     }
+
+    output += `${emoji}**__${embed.title}__**\n\n`;
   }
 
   if (embed.description) {

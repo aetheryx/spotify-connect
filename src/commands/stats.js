@@ -4,8 +4,16 @@ const { VERSION: erisVersion } = require('eris');
 const { version: mongoVersion } = require('mongodb/package.json');
 
 const { parseDuration } = require('@sc/utils');
+const { Command } = require('@sc/models');
 
-module.exports = {
+module.exports = class StatsCommand extends Command {
+  constructor (main) {
+    super(main, {
+      triggers: [ 'stats', 'info' ],
+      description: 'Returns statistics and metrics about Spotify Connect'
+    });
+  }
+
   async execute (msg) {
     const { rss } = process.memoryUsage();
 
@@ -52,8 +60,5 @@ module.exports = {
       ],
       footer: { text: 'Created by Aetheryx#2222' }
     };
-  },
-
-  triggers: [ 'stats', 'info' ],
-  description: 'Returns statistics and metrics about Spotify Connect'
+  }
 };

@@ -16,7 +16,7 @@ module.exports = class DatabaseTable {
   }
 
   update (query, data) {
-    return this.table.update(query, {
+    return this.table.updateOne(query, {
       $set: data
     });
   }

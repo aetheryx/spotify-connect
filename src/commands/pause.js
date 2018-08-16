@@ -1,21 +1,21 @@
 const { spotifyOAuth } = require('@sc/rest');
+const { LinkedCommand } = require('@sc/models');
 
-module.exports = {
-  async execute (msg) {
-    const link = await this.main.db.links.get(msg.author.id);
-    if (!link) {
-      return 'no';
+module.exports = class PauseCommand extends LinkedCommand {
+  constructor (main) {
+    super(main, {
+      triggers: [ 'pause' ],
+      requiresPlayer: true
+    });
+  }
+
+  async execute (link, player) {
+    if (!player.is_playing) {
+      return 'You aren\'t playing anything right now. Use the `play` command to play something or the `resume` command to resume.';
     }
 
-    const player = await spotifyOAuth.getPlayer(link);
-    if (player.is_playing) {
-      await spotifyOAuth.pause(link);
-    } else {
-      await spotifyOAuth.resume(link);
-    }
+    await spotifyOAuth.pause(link);
 
-    return 'yes';
-  },
-
-  triggers: [ 'pause' ]
+    return 'Paused successfully. Use the `resume` command to resume.';
+  }
 };

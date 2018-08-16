@@ -38,18 +38,12 @@ module.exports = class SpotifyConnect extends Client {
   }
 
   async loadCommands () {
-    for (const command of commands) {
-      mergeDefaults(command, {
-        main: this,
-        usage: '{c}',
-        examples: [],
-        ownerOnly: false
-      });
+    for (const CommandClass of commands) {
+      const command = new CommandClass(this);
 
-      this.commands.set(command.triggers[0], command);
-
-      for (const trigger of command.triggers) {
-        this.commandTriggers.set(trigger, command.triggers[0]);
+      this.commands.set(command.props.triggers[0], command);
+      for (const trigger of command.props.triggers) {
+        this.commandTriggers.set(trigger, command.props.triggers[0]);
       }
     }
   }

@@ -15,6 +15,7 @@ async function onMessageCreate (msg) {
       return `${mentionPrefix[0]} `;
     }
 
+    // TODO: custom prefixes
     return 's;';
   })();
 
@@ -37,7 +38,7 @@ async function onMessageCreate (msg) {
   }
 
   command
-    .execute(msg, args)
+    ._execute(msg, args)
     .catch(err => {
       console.error(err);
 
@@ -55,7 +56,7 @@ async function onMessageCreate (msg) {
       if (res instanceof Object) {
         res = {
           embed: {
-            color: res.color || 0xCA2D36,
+            color: res.color || 0x1DB954,
             ...res
           }
         };
