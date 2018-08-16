@@ -156,7 +156,7 @@
       "max": 2
     }],
     "multiline-comment-style": [ "error" ],
-    "multiline-ternary": [ "error", "always" ],
+    "multiline-ternary": [ "error", "always-multiline" ],
     "new-cap": [ "error", {
       "newIsCap": true
     }],
