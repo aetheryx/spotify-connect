@@ -4,7 +4,7 @@ const { LinkedCommand } = require('@sc/models');
 module.exports = class PauseCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
-      triggers: [ 'pause' ],
+      triggers: [ 'pause', 'ps' ],
       requiresPlayer: true
     });
   }

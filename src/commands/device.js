@@ -4,7 +4,7 @@ const { spotifyOAuth } = require('@sc/rest');
 module.exports = class DevicesCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
-      triggers: [ 'device' ]
+      triggers: [ 'device', 'devices' ]
     });
   }
 
@@ -18,7 +18,7 @@ module.exports = class DevicesCommand extends LinkedCommand {
       title: `${devices.length} devices found`,
       fields: devices.map(device => ({
         name: device.name,
-        value: `Playing: ${device.is_active ? '☑' : '❌'}\nType: ${device.type}\nVolume: ${device.volume_percent}%`
+        value: `Playing: ${device.is_active ? '☑' : '❌'}\nType: ${device.type}\nVolume: \`${device.volume_percent}%\``
       }))
     };
   }

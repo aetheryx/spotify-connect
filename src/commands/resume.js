@@ -4,7 +4,7 @@ const { LinkedCommand } = require('@sc/models');
 module.exports = class ResumeCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
-      triggers: [ 'resume' ],
+      triggers: [ 'resume', 'r' ],
       requiresPlayer: true
     });
   }
