@@ -64,5 +64,17 @@ module.exports = {
     return put(`${this.BASE_URL}/me/player/volume`)
       .set('Authorization', `Bearer ${link.auth.access_token}`)
       .query('volume_percent', volume);
+  },
+
+  setRepeatMode (link, state) {
+    return put(`${this.BASE_URL}/me/player/repeat`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .query('state', state);
+  },
+
+  seek (link, position) {
+    return put(`${this.BASE_URL}/me/player/seek`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .query('position_ms', position);
   }
 };
