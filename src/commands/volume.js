@@ -12,12 +12,12 @@ module.exports = class VolumeCommand extends LinkedCommand {
   async execute (link, player, msg, [ volume ]) {
     const currentVolume = player.device.volume_percent;
 
-    if (volume.toLowerCase() === 'max') {
-      volume = '100';
-    }
-
     if (!volume) {
       return `Your volume is currently \`${currentVolume}\`%.`;
+    }
+
+    if (volume.toLowerCase() === 'max') {
+      volume = '100';
     }
 
     if (volume.startsWith('+')) {
