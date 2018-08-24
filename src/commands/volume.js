@@ -1,3 +1,5 @@
+// TODO: verify volume changes because android mobile is fucky
+
 const { LinkedCommand } = require('@sc/models');
 const { spotifyOAuth } = require('@sc/rest');
 
@@ -13,7 +15,8 @@ module.exports = class VolumeCommand extends LinkedCommand {
         '{c} -10 (decreases the volume by 10%)'
       ],
       triggers: [ 'volume', 'vol', 'v' ],
-      requiresPlayer: true
+      requiresPlayer: true,
+      order: 8
     });
   }
 
@@ -25,24 +28,21 @@ module.exports = class VolumeCommand extends LinkedCommand {
     }
 
     if (volume.toLowerCase() === 'max') {
-      volume = '100';
-    }
-
-    if (volume.startsWith('+')) {
-      volume = currentVolume + Number(volume.slice(1));
+      volume = 100;
+    } else if (volume.startsWith('+')) {
+      volume = currentVolume + Number(volume.match(/\d+/)[0]);
     } else if (volume.startsWith('-')) {
-      volume = currentVolume - Number(volume.slice(1));
-    }
-
-    if (!volume) {
-      return 'You have to specify the volume as a number.';
+      volume = currentVolume - Number(volume.match(/\d+/)[0]);
+    } else if (!isNaN(volume)) {
+      volume = Number(volume);
+    } else {
+      // TODO: custom prefixes
+      return 'The supplied arguments are invalid. Please refer to `s;help volume` for more information.';
     }
 
     if (volume < 0) {
       return 'The target volume cannot be below `0%`.';
-    }
-
-    if (volume > 100) {
+    } else if (volume > 100) {
       return 'The target volume cannot be above `100%`.';
     }
 

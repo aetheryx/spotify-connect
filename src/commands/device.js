@@ -7,7 +7,8 @@ module.exports = class DevicesCommand extends LinkedCommand {
       description: 'TODO',
       usage: 'TODO',
       examples: [ '{c}', 'TODO' ],
-      triggers: [ 'device', 'devices' ]
+      triggers: [ 'device', 'devices' ],
+      order: 12
     });
   }
 

@@ -5,7 +5,8 @@ module.exports = class NextCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
       description: 'Plays the next song.',
-      triggers: [ 'next', 'skip' ]
+      triggers: [ 'next', 'skip' ],
+      order: 6
     });
   }
 

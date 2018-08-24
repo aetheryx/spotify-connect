@@ -4,9 +4,10 @@ const { LinkedCommand } = require('@sc/models');
 module.exports = class ResumeCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
-      descriptions: 'Resumes playing the currently paused song.',
+      description: 'Resumes playback.',
       triggers: [ 'resume', 'r' ],
-      requiresPlayer: true
+      requiresPlayer: true,
+      order: 4
     });
   }
 

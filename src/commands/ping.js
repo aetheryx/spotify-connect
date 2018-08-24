@@ -4,7 +4,8 @@ module.exports = class PingCommand extends Command {
   constructor (main) {
     super(main, {
       description: 'Returns the latency of the bot to Discord API.',
-      triggers: [ 'ping' ]
+      triggers: [ 'ping' ],
+      order: 11
     });
   }
 

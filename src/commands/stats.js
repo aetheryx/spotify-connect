@@ -10,7 +10,8 @@ module.exports = class StatsCommand extends Command {
   constructor (main) {
     super(main, {
       description: 'Returns statistics and metrics about Spotify Connect',
-      triggers: [ 'stats', 'info' ]
+      triggers: [ 'stats', 'info' ],
+      order: 10
     });
   }
 

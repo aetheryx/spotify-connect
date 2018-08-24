@@ -4,7 +4,8 @@ module.exports = class UnlinkCommand extends Command {
   constructor (main) {
     super(main, {
       description: 'Deletes your Spotify account connection from the bot\'s database.',
-      triggers: [ 'unlink' ]
+      triggers: [ 'unlink' ],
+      order: 2
     });
   }
 

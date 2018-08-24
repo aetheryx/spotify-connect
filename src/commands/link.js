@@ -3,8 +3,9 @@ const { Command } = require('@sc/models');
 module.exports = class LinkCommand extends Command {
   constructor (main) {
     super(main, {
-      description: 'Run this command to link up your Spotify account with your Discord account.',
-      triggers: [ 'link' ]
+      description: 'Lets you link up your Spotify account. Step one!',
+      triggers: [ 'link' ],
+      order: 1
     });
   }
 

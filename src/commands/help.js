@@ -4,10 +4,11 @@ const { codeblock } = require('@sc/utils');
 module.exports = class StatsCommand extends Command {
   constructor (main) {
     super(main, {
-      description: 'Returns statistics and metrics about Spotify Connect',
+      description: 'You\'re looking at it, dumbass.',
       usage: '{c} [ commandName ]',
       examples: [ '{c}', '{c} volume' ],
-      triggers: [ 'help', 'h' ]
+      triggers: [ 'help', 'h' ],
+      order: 0
     });
   }
 
@@ -48,13 +49,25 @@ module.exports = class StatsCommand extends Command {
       };
     }
 
-    const commands = [ ...this.main.commands.values() ];
+    const getPropLength = (command) => command.props.triggers[0].length;
+
+    const commands = [ ...this.main.commands.values() ]
+
+    const longestCommandName = getPropLength(commands.sort((a, b) => getPropLength(b) - getPropLength(a))[0]);
+
     return {
       // TODO: custom prefixes
       // TODO: link on website
       content: 'My prefix in this server is `s;`, but you can also mention me.\n\nTo get started, run the `s;link` command to link your Spotify account. After you do so, you can run all of the playback-related commands.\n\nAdditionally, run `s;help [command]` for more information regarding that specific command. For example, `s;help repeat`.',
       title: 'List of Commands',
-      description: commands.map(c => ` • __${c.props.triggers[0]}__`).join('\n')
+      description: commands
+        .sort((a, b) => a.props.order - b.props.order)
+        .map(command => {
+          const { triggers: [ trigger ], description } = command.props;
+
+          return `\`${trigger.padEnd((longestCommandName * 2) - trigger.length, ' \u200b')} |\` \u200b \u200b*${description}*`;
+        })
+        .join('\n')
     };
   }
 };
