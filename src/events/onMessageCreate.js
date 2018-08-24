@@ -55,6 +55,7 @@ async function onMessageCreate (msg) {
 
       if (res instanceof Object) {
         res = {
+          content: res.content || '',
           embed: {
             color: res.color || 0x1DB954,
             ...res
