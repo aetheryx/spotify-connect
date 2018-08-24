@@ -1,11 +1,11 @@
 module.exports = class Command {
-  constructor (main, params) {
+  constructor (main, props) {
     this.main = main;
     this.props = {
       usage: '{c}',
       examples: [],
       ownerOnly: false,
-      ...params
+      ...props
     };
   }
 
