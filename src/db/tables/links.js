@@ -10,7 +10,7 @@ module.exports = class LinkTable extends DatabaseTable {
       id: link.id
     }, {
       'auth.access_token': link.auth.access_token,
-      'auth.expiryDate': Date.now() * link.auth.expires_in
+      'auth.expiryDate': Date.now() + (link.auth.expires_in * 1000)
     });
   }
 };
