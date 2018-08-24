@@ -5,6 +5,13 @@ const { parseMS } = require('@sc/utils');
 module.exports = class SeekCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
+      description: 'Seek to a different timestamp in the song.',
+      usage: '{c} < absolute_timestamp | +amount | -amount >',
+      examples: [
+        '{c} 01:30 (seeks to exactly 01:30)',
+        '{c} +30 (seeks 30 seconds ahead)',
+        '{c} -30 (seeks 30 seconds back)'
+      ],
       triggers: [ 'seek' ],
       requiresPlayer: true
     });

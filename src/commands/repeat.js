@@ -17,6 +17,9 @@ const humanisedRepeatStates = {
 module.exports = class RepeatCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
+      description: 'Lets you specify a repeat mode.',
+      usage: '{c} [ on | track | off ]',
+      examples: [ '{c} track', '{c} off' ],
       triggers: [ 'repeat', 'rep' ],
       requiresPlayer: true
     });

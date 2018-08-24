@@ -4,6 +4,9 @@ const { spotifyOAuth } = require('@sc/rest');
 module.exports = class DevicesCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
+      description: 'TODO',
+      usage: 'TODO',
+      examples: [ '{c}', 'TODO' ],
       triggers: [ 'device', 'devices' ]
     });
   }

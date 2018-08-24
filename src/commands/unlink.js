@@ -3,6 +3,7 @@ const { Command } = require('@sc/models');
 module.exports = class UnlinkCommand extends Command {
   constructor (main) {
     super(main, {
+      description: 'Deletes your Spotify account connection from the bot\'s database.',
       triggers: [ 'unlink' ]
     });
   }

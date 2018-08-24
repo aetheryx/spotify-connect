@@ -4,6 +4,14 @@ const { spotifyOAuth } = require('@sc/rest');
 module.exports = class VolumeCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
+      description: 'Lets you change the volume of the currently playing track.',
+      usage: '{c} [ absolute_% | +amount_% | -amount_% ]',
+      examples: [
+        '{c} 50  (sets the volume to 50%)',
+        '{c} max (sets the volume to 100%)',
+        '{c} +10 (increases the volume by 10%)',
+        '{c} -10 (decreases the volume by 10%)'
+      ],
       triggers: [ 'volume', 'vol', 'v' ],
       requiresPlayer: true
     });
