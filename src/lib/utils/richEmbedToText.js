@@ -1,7 +1,9 @@
 const hyperlinkRegex = /\[(.*?)\]\((.*?)\)/g;
 
 module.exports = ({ embed }) => {
-  let output = '';
+  let output = embed.content
+    ? `${embed.content}\n\n`
+    : '';
 
   if (embed.title) {
     let emoji = '';
