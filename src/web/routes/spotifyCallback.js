@@ -14,7 +14,7 @@ module.exports = async function spotifyCallbackRoute (app) {
       .then(r => r.body);
 
     if (user.product !== 'premium') {
-      return res.status(403).send('You don\'t seem to have Spotify Premium. Unfortunately, Spotify only lets users with Premium use the Web Player API.. so, as things currently stand, you can\'t use the bot :(<br><img src="https://tc.bad-me.me/cfe6c6.png">');
+      return res.status(403).send('You don\'t seem to have Spotify Premium on this account. Unfortunately, Spotify only lets users with Premium use the Connect API.. so, as things currently stand, you can\'t use the bot :(<br><img src="https://tc.bad-me.me/cfe6c6.png">');
     }
 
     await this.db.links.insert({
