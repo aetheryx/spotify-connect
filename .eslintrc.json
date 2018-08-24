@@ -23,10 +23,6 @@
     }],
     "no-empty-character-class": [ "error" ],
     "no-extra-boolean-cast": [ "error" ],
-    "no-extra-parens": [ "error", "all", {
-      "returnAssign": false,
-      "nestedBinaryExpressions": false
-    }],
     "no-extra-semi": [ "error" ],
     "no-func-assign": [ "error" ],
     "no-invalid-regexp": [ "error" ],
