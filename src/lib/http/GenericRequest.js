@@ -24,7 +24,7 @@ module.exports = class GenericRequest {
       uri,
       query: {},
       headers: {
-        'User-Agent': `SpotifyConnectBot/${version} (https://github.com/aetheryx/SpotifyConnect)`
+        'User-Agent': `SpotifyConnectBot/${version} (https://github.com/aetheryx/spotify-connect)`
       }
     };
   }
