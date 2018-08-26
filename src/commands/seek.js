@@ -40,9 +40,7 @@ module.exports = class SeekCommand extends LinkedCommand {
     }
 
     await spotifyOAuth.seek(link, position);
-    const realPosition = position > player.item.duration_ms
-      ? player.item.duration_ms
-      : position;
+    const realPosition = Math.min(position, player.item.duration_ms);
 
     return `Seeked to \`${parseMS(realPosition)}\`.`;
   }
