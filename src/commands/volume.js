@@ -10,9 +10,9 @@ module.exports = class VolumeCommand extends LinkedCommand {
       usage: '{c} [ absolute_% | +amount_% | -amount_% ]',
       examples: [
         '{c} 50  (sets the volume to 50%)',
-        '{c} max (sets the volume to 100%)',
         '{c} +10 (increases the volume by 10%)',
-        '{c} -10 (decreases the volume by 10%)'
+        '{c} -10 (decreases the volume by 10%)',
+        '{c} max (sets the volume to 100%)'
       ],
       triggers: [ 'volume', 'vol', 'v' ],
       requiresPlayer: true,
