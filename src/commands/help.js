@@ -52,6 +52,7 @@ module.exports = class StatsCommand extends Command {
     const getPropLength = (command) => command.props.triggers[0].length;
 
     const commands = [ ...this.main.commands.values() ]
+      .filter(command => !command.props.ownerOnly);
 
     const longestCommandName = getPropLength(commands.sort((a, b) => getPropLength(b) - getPropLength(a))[0]);
 

@@ -27,7 +27,7 @@ async function onMessageCreate (msg) {
   const command = this.commands.get(this.commandTriggers.get(commandName));
   if (
     !command || (
-      command.ownerOnly && msg.author.id !== this.config.OWNER_ID
+      command.ownerOnly && msg.author.id !== process.env.BOT_OWNER_ID
     )) {
     return;
   }
