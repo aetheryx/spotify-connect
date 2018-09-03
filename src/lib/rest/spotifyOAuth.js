@@ -76,5 +76,21 @@ module.exports = {
     return put(`${this.BASE_URL}/me/player/seek`)
       .set('Authorization', `Bearer ${link.auth.access_token}`)
       .query('position_ms', position);
+  },
+
+  search (link, type, q) {
+    return get(`${this.BASE_URL}/search`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .query({
+        q,
+        type,
+        market: 'from_token'
+      }).then(r => r.body);
+  },
+
+  play (link, data) {
+    return put(`${this.BASE_URL}/me/player/play`)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .send(data);
   }
 };
