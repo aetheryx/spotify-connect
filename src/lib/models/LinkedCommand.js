@@ -30,6 +30,7 @@ module.exports = class LinkedCommand extends Command {
       .catch(err => {
         if (
           err.name === 'HTTPError' &&
+          err.body &&
           err.body.error.message === Errors.NO_DEVICE_FOUND
         ) {
           return 'I was unable to find any devices running Spotify on your account. Are you sure Spotify is installed and logged in on your device?';
