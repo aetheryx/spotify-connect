@@ -16,7 +16,7 @@ async function onMessageCreate (msg) {
     }
 
     // TODO: custom prefixes
-    return 's;';
+    return process.env.BOT_DEFAULT_PREFIX;
   })();
 
   if (!msg.content.startsWith(prefix)) {

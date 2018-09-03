@@ -36,7 +36,7 @@ module.exports = class SeekCommand extends LinkedCommand {
     }
 
     if (!position) {
-      return `I was unable to parse \`${target}\` as a valid seek argument. Please refer to s;help seek for more information.`; // TODO: dynamic prefix
+      return `I was unable to parse \`${target}\` as a valid seek argument. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}help\` seek for more information.`; // TODO: dynamic prefix
     }
 
     await spotifyOAuth.seek(link, position);

@@ -37,7 +37,7 @@ module.exports = class VolumeCommand extends LinkedCommand {
       volume = Number(volume);
     } else {
       // TODO: custom prefixes
-      return 'The supplied arguments are invalid. Please refer to `s;help volume` for more information.';
+      return `The supplied arguments are invalid. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}help volume\` for more information.`;
     }
 
     if (volume < 0) {

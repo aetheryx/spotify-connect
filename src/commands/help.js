@@ -19,7 +19,7 @@ module.exports = class StatsCommand extends Command {
         return 'I was unable to find a command with that name.';
       }
 
-      const template = (string) => string.replace('{c}', `s;${commandName}`); // TODO: custom prefixes
+      const template = (string) => string.replace('{c}', `${process.env.BOT_DEFAULT_PREFIX}${commandName}`); // TODO: custom prefixes
 
       const command = this.main.commands.get(commandName);
 
@@ -59,7 +59,7 @@ module.exports = class StatsCommand extends Command {
     return {
       // TODO: custom prefixes
       // TODO: link on website
-      content: 'My prefix in this server is `s;`, but you can also mention me.\n\nTo get started, run the `s;link` command to link your Spotify account. After you do so, you can run all of the playback-related commands.\n\nAdditionally, run `s;help [command]` for more information regarding that specific command. For example, `s;help repeat`.',
+      content: `My prefix in this server is \`${process.env.BOT_DEFAULT_PREFIX}\`, but you can also mention me.\n\nTo get started, run the \`${process.env.BOT_DEFAULT_PREFIX}link\` command to link your Spotify account. After you do so, you can run all of the playback-related commands.\n\nAdditionally, run \`${process.env.BOT_DEFAULT_PREFIX}help [command]\` for more information regarding that specific command. For example, \`${process.env.BOT_DEFAULT_PREFIX}help repeat\`.`,
       title: 'List of Commands',
       description: commands
         .sort((a, b) => a.props.order - b.props.order)
