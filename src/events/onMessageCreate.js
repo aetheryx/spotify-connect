@@ -45,7 +45,13 @@ async function onMessageCreate (msg) {
       return {
         title: '⚠ Something went wrong while executing this command.',
         color: 0xFF0000,
-        description: codeblock(err.message)
+        description: codeblock(
+          err.message + (
+            err.body && err.body.error
+              ? `\n${err.body.error.message}`
+              : ''
+          )
+        )
       };
     })
     .then(res => {
