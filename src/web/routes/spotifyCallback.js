@@ -28,6 +28,6 @@ module.exports = async function spotifyCallbackRoute (app) {
       }
     });
 
-    res.status(200).send('Successfully linked! You should be able to use the bot\'s command now :)');
+    res.status(200).send('Successfully linked! You should be able to use the bot\'s commands now :)');
   });
 };
