@@ -23,7 +23,11 @@ module.exports = class NowPlayingCommand extends LinkedCommand {
         `\nProgress: ${parseMS(player.progress_ms)}/${parseMS(player.item.duration_ms)}`,
         `Volume: ${player.device.volume_percent}%`
       ].filter(Boolean).join('\n'),
-      thumbnail: { url: player.item.album.images[0].url }
+      thumbnail: {
+        url: player.item.album.images[0]
+          ? player.item.album.images[0].url
+          : ''
+      }
     };
   }
 };
