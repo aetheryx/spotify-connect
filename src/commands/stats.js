@@ -48,8 +48,8 @@ module.exports = class StatsCommand extends Command {
         value: `${msg.channel.guild.shard.latency.toFixed()} ms`,
         inline: true
       }, {
-        name: '\u200b',
-        value: '\u200b',
+        name: 'Guilds',
+        value: this.main.guilds.size,
         inline: true
       } ],
       footer: { text: 'Created by Aetheryx#2222' }
