@@ -9,7 +9,8 @@ module.exports = async function spotifyStartRoute (app) {
       'user-read-currently-playing',
       'user-modify-playback-state',
       'user-read-playback-state',
-      'user-read-private'
+      'user-read-private',
+      'playlist-read-private'
     ].join(' ')
   });
 
