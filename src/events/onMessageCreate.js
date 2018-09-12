@@ -1,4 +1,5 @@
 const { codeblock, richEmbedToText } = require('@sc/utils/');
+const { Permission } = require('eris');
 
 async function onMessageCreate (msg) {
   if (msg.author.bot) {
@@ -32,7 +33,10 @@ async function onMessageCreate (msg) {
     return;
   }
 
-  const permissions = msg.channel.permissionsOf(this.user.id);
+  const permissions = msg.channel.guild
+    ? msg.channel.permissionsOf(this.user.id)
+    : new Permission(383040); // DM channels
+
   if (!permissions.has('sendMessages')) {
     return;
   }

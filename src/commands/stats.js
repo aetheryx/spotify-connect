@@ -17,6 +17,9 @@ module.exports = class StatsCommand extends Command {
 
   async execute (msg) {
     const { rss } = process.memoryUsage();
+    const { latency } = msg.channel.guild
+      ? msg.channel.guild.shard
+      : this.main.shards.get(0);
 
     return {
       title: 'Spotify Connect Statistics',
@@ -45,7 +48,7 @@ module.exports = class StatsCommand extends Command {
         inline: true
       }, {
         name: 'Latency',
-        value: `${msg.channel.guild.shard.latency.toFixed()} ms`,
+        value: `${latency.toFixed()} ms`,
         inline: true
       }, {
         name: 'Guilds',

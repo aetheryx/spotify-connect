@@ -10,6 +10,10 @@ module.exports = class PingCommand extends Command {
   }
 
   async execute (msg) {
-    return `🏓 Pong! ${msg.channel.guild.shard.latency}ms`;
+    const { latency } = msg.channel.guild
+      ? msg.channel.guild.shard
+      : this.main.shards.get(0);
+
+    return `🏓 Pong! ${latency.toFixed()}ms`;
   }
 };
