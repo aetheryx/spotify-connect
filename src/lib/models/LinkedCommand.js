@@ -1,5 +1,5 @@
 const { Command } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyOAuth, SpotifyPlayer } = require('@sc/rest');
 const { Errors } = require('@sc/constants');
 
 module.exports = class LinkedCommand extends Command {
@@ -10,7 +10,7 @@ module.exports = class LinkedCommand extends Command {
     }
 
     if (Date.now() > link.auth.expiryDate) {
-      const tokens = await spotifyOAuth.refreshToken(link.auth.refresh_token);
+      const tokens = await SpotifyOAuth.refreshToken(link.auth.refresh_token);
       Object.assign(link.auth, tokens);
       this.main.db.links.updateAuth(link);
     }
@@ -18,7 +18,7 @@ module.exports = class LinkedCommand extends Command {
     const funcArgs = [ link, msg, args ];
 
     if (this.props.requiresPlayer) {
-      const player = await spotifyOAuth.getPlayer(link);
+      const player = await SpotifyPlayer.getPlayer(link);
       if (!player) {
         return 'I was unable to find any devices running Spotify on your account. Are you sure Spotify is installed and logged in on your device?';
       }

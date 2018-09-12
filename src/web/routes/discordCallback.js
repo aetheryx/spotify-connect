@@ -1,4 +1,4 @@
-const { discordOAuth } = require('@sc/rest');
+const { DiscordOAuth } = require('@sc/rest');
 const { log } = require('@sc/utils');
 
 module.exports = async function discordCallbackRoute (app) {
@@ -7,13 +7,13 @@ module.exports = async function discordCallbackRoute (app) {
       return res.status(400).send('Missing code querystring');
     }
 
-    const bearer = await discordOAuth.getBearer(req.query.code);
+    const bearer = await DiscordOAuth.getBearer(req.query.code);
     if (bearer.error) {
       log.error('discordCallback error', bearer);
       return res.status(500).send(`Something went wrong: <code>${bearer.error}</code><br>If the issue persists, please join <a href="https://discord.gg/Yphr6WG">Spotify Connect's support server</a> for assistance.`);
     }
 
-    const user = await discordOAuth.getUserByBearer(bearer.access_token);
+    const user = await DiscordOAuth.getUserByBearer(bearer.access_token);
     if (!user.id) {
       log.error('discordCallback error', user);
       return res.status(500).send(`Something went wrong: <code>${user.message}</code><br>If the issue persists, please join <a href="https://discord.gg/Yphr6WG">Spotify Connect's support server</a> for assistance.`);

@@ -1,5 +1,5 @@
 const { Client } = require('eris');
-const { log, mergeDefaults } = require('@sc/utils/');
+const { log } = require('@sc/utils');
 
 const pkg       = require(`${__dirname}/../package.json`);
 const events    = require(`${__dirname}/events/`);
@@ -33,7 +33,7 @@ module.exports = class SpotifyConnect extends Client {
       this.db = await createDB(this);
       await this.loadCommands();
       await createAPI.call(this);
-      log(`Successfuly initiated in ${process.uptime().toFixed(2)}s.`);
+      log(`Successfully initiated in ${process.uptime().toFixed(2)}s.`);
     });
   }
 

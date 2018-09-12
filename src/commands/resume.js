@@ -1,4 +1,4 @@
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 const { LinkedCommand } = require('@sc/models');
 
 module.exports = class ResumeCommand extends LinkedCommand {
@@ -16,7 +16,7 @@ module.exports = class ResumeCommand extends LinkedCommand {
       return 'You\'re already playing something. Use the `pause` command to pause.';
     }
 
-    await spotifyOAuth.resume(link);
+    await SpotifyPlayer.resume(link);
 
     return 'Resumed successfully. Use the `pause` command to pause.';
   }

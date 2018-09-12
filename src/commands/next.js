@@ -1,4 +1,4 @@
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 const { LinkedCommand } = require('@sc/models');
 
 module.exports = class NextCommand extends LinkedCommand {
@@ -11,7 +11,7 @@ module.exports = class NextCommand extends LinkedCommand {
   }
 
   async execute (link) {
-    await spotifyOAuth.next(link);
+    await SpotifyPlayer.next(link);
     return 'Playing next track...';
   }
 };

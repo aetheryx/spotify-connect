@@ -1,4 +1,4 @@
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyOAuth } = require('@sc/rest');
 const { get } = require('@sc/http');
 
 module.exports = async function spotifyCallbackRoute (app) {
@@ -7,7 +7,7 @@ module.exports = async function spotifyCallbackRoute (app) {
       return res.status(412).send(`No user profile found in session. Start at <a href="/link">${process.env.WEB_DOMAIN}/link<a>.<br>If the issue persists, please join <a href="https://discord.gg/Yphr6WG">Spotify Connect's support server</a> for assistance.`);
     }
 
-    const token = await spotifyOAuth.getToken(req.query.code);
+    const token = await SpotifyOAuth.getToken(req.query.code);
 
     const user = await get('https://api.spotify.com/v1/me')
       .set('Authorization', `Bearer ${token.access_token}`)

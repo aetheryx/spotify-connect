@@ -1,5 +1,5 @@
 const { LinkedCommand } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 
 const repeatStates = {
   off: 'off',
@@ -37,7 +37,7 @@ module.exports = class RepeatCommand extends LinkedCommand {
       return `\`${target}\` is not a valid repeat mode. Specify one of \`on\`, \`off\` or \`track\`.`;
     }
 
-    await spotifyOAuth.setRepeatMode(link, repeatState);
+    await SpotifyPlayer.setRepeatMode(link, repeatState);
     return `Successfully set repeat mode to \`${target}\`.`;
   }
 };

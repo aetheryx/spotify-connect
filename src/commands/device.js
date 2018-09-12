@@ -1,5 +1,5 @@
 const { LinkedCommand } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 
 module.exports = class DevicesCommand extends LinkedCommand {
   constructor (main) {
@@ -12,7 +12,7 @@ module.exports = class DevicesCommand extends LinkedCommand {
   }
 
   async execute (link) {
-    const { devices } = await spotifyOAuth.getDevices(link);
+    const { devices } = await SpotifyPlayer.getDevices(link);
     if (!devices[0]) {
       return 'I was unable to find any devices that are running Spotify on this account.';
     }

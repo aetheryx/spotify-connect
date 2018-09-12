@@ -1,5 +1,5 @@
 const { LinkedCommand } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer, SpotifyAPI } = require('@sc/rest');
 const { sleep } = require('@sc/utils');
 
 module.exports = class PlayCommand extends LinkedCommand {
@@ -41,7 +41,7 @@ module.exports = class PlayCommand extends LinkedCommand {
         type = 'track';
     }
 
-    const res = await spotifyOAuth.search(link, type, query);
+    const res = await SpotifyAPI.search(link, type, query);
     // TODO: letting users select a specific track from the list of results
 
     const { items: [ item ] } = res.tracks || res.albums;
@@ -49,7 +49,7 @@ module.exports = class PlayCommand extends LinkedCommand {
       return `I was unable to find any search results with query \`${query}\` and type \`${type}\`.`;
     }
 
-    await spotifyOAuth.play(link, {
+    await SpotifyPlayer.play(link, {
       ...(type === 'track'
         ? { uris: [ item.uri ] }
         : { context_uri: item.uri }
@@ -63,7 +63,7 @@ module.exports = class PlayCommand extends LinkedCommand {
 
         while (tries < 5) {
           tries++;
-          const newPlayer = await spotifyOAuth.getPlayer(link);
+          const newPlayer = await SpotifyPlayer.getPlayer(link);
 
           if (newPlayer.item.id !== player.item.id) {
             break;

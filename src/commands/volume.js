@@ -1,7 +1,7 @@
 // TODO: verify volume changes because android mobile is fucky
 
 const { LinkedCommand } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 
 module.exports = class VolumeCommand extends LinkedCommand {
   constructor (main) {
@@ -46,7 +46,7 @@ module.exports = class VolumeCommand extends LinkedCommand {
       return 'The target volume cannot be above `100%`.';
     }
 
-    await spotifyOAuth.setVolume(link, volume);
+    await SpotifyPlayer.setVolume(link, volume);
     return `Set volume to \`${volume}%\`.`;
   }
 };

@@ -1,5 +1,5 @@
 const { LinkedCommand } = require('@sc/models');
-const { spotifyOAuth } = require('@sc/rest');
+const { SpotifyPlayer } = require('@sc/rest');
 const { parseMS } = require('@sc/utils');
 
 module.exports = class SeekCommand extends LinkedCommand {
@@ -39,7 +39,7 @@ module.exports = class SeekCommand extends LinkedCommand {
       return `I was unable to parse \`${target}\` as a valid seek argument. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}help\` seek for more information.`; // TODO: dynamic prefix
     }
 
-    await spotifyOAuth.seek(link, position);
+    await SpotifyPlayer.seek(link, position);
     const realPosition = Math.min(position, player.item.duration_ms);
 
     return `Seeked to \`${parseMS(realPosition)}\`.`;
