@@ -1,3 +1,4 @@
+// a piece of meme history https://github.com/Aetheryx/spotify-connect/pull/3
 const Tweetcord2 = require(`${__dirname}/src/`);
 
 const config = require(`${__dirname}/config.json`);
