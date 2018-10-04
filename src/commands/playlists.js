@@ -33,7 +33,7 @@ module.exports = class PlaylistsCommand extends LinkedCommand {
 
       case 'play': {
         const target = args.slice(1).join(' ');
-        const playlist = playlists.items.find(item => item.name.toLowerCase() === target.toLowerCase());
+        const playlist = playlists.items.find(item => item.name.toLowerCase().includes(target.toLowerCase()));
         if (!playlist) {
           // TODO: custom prefixes
           return `I was unable to find that playlist. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}playlist list\` for a list of your playlists.`;
