@@ -6,23 +6,19 @@ module.exports = class PlayCommand extends LinkedCommand {
   constructor (main) {
     super(main, {
       description: 'Play a song or an album.',
-      usage: '{c} [ song | album (defaults to song) ] <query>',
+      usage: '{c} [ song | album (defaults to song) | @User ] [ query ]',
       examples: [
         '{c} song In My Feelings',
         '{c} In My Feelings',
-        '{c} album Scorpion'
+        '{c} album Scorpion',
+        '{c} @Aetheryx#2222'
       ],
       triggers: [ 'play', 'p' ],
       requiresPlayer: true
     });
   }
 
-  async execute (link, player, msg, args) {
-    if (!args[0]) {
-      // TODO: custom prefixes
-      return `Missing required arguments. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}help play\` for more information.`;
-    }
-
+  async searchByArguments (args, link) {
     let type, query;
 
     switch (args[0]) {
@@ -45,14 +41,38 @@ module.exports = class PlayCommand extends LinkedCommand {
     // TODO: letting users select a specific track from the list of results
 
     const { items: [ item ] } = res.tracks || res.albums;
-    if (!item) {
-      return `I was unable to find any search results with query \`${query}\` and type \`${type}\`.`;
+    return { type, query, item };
+  }
+
+  async execute (link, player, msg, args) {
+    if (!args[0]) {
+      return `Missing required arguments. Please refer to \`${process.env.BOT_DEFAULT_PREFIX}help play\` for more information.`;
+    }
+
+    let uri, type;
+
+    if (msg.mentions[0]) {
+      const targetLink = await this.main.db.links.get(msg.mentions[0].id);
+      if (!targetLink.isPublic) {
+        // todo: get from spotify rp
+        return `**${msg.mentions[0].username}** has not made their play data public. They have to run the \`${process.env.BOT_DEFAULT_PREFIX}privacy\` command to change this.`;
+      }
+      const targetPlayer = await SpotifyPlayer.getPlayer(targetLink);
+      uri = targetPlayer.item.uri;
+      type = targetPlayer.currently_playing_type;
+    } else {
+      const result = await this.searchByArguments(args, link);
+      if (!result.item) {
+        return `I was unable to find any search results with query \`${result.query}\` and type \`${result.type}\`.`;
+      }
+      uri = result.item.uri;
+      type = result.type;
     }
 
     await SpotifyPlayer.play(link, {
       ...(type === 'track'
-        ? { uris: [ item.uri ] }
-        : { context_uri: item.uri }
+        ? { uris: [ uri ] }
+        : { context_uri: uri }
       )
     });
 
@@ -64,7 +84,6 @@ module.exports = class PlayCommand extends LinkedCommand {
         while (tries < 5) {
           tries++;
           const newPlayer = await SpotifyPlayer.getPlayer(link);
-
           if (newPlayer.item.id !== player.item.id) {
             break;
           }

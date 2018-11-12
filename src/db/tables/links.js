@@ -13,4 +13,12 @@ module.exports = class LinkTable extends DatabaseTable {
       'auth.expiryDate': Date.now() + (link.auth.expires_in * 1000)
     });
   }
+
+  setPrivacy (link, isPublic) {
+    this.update({
+      id: link.id
+    }, {
+      isPublic
+    });
+  }
 };
