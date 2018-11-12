@@ -53,7 +53,7 @@ module.exports = class PlayCommand extends LinkedCommand {
 
     if (msg.mentions[0]) {
       const targetLink = await this.main.db.links.get(msg.mentions[0].id);
-      if (!targetLink.isPublic) {
+      if (!targetLink || !targetLink.isPublic) {
         // todo: get from spotify rp
         return `**${msg.mentions[0].username}** has not made their play data public. They have to run the \`${process.env.BOT_DEFAULT_PREFIX}privacy\` command to change this.`;
       }
