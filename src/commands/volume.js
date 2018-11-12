@@ -46,7 +46,14 @@ module.exports = class VolumeCommand extends LinkedCommand {
       return 'The target volume cannot be above `100%`.';
     }
 
-    await SpotifyPlayer.setVolume(link, volume);
-    return `Set volume to \`${volume}%\`.`;
+    return SpotifyPlayer.setVolume(link, volume)
+      .then(() => `Set volume to \`${volume}%\`.`)
+      .catch(err => {
+        if (err.body.error.reason === 'VOLUME_CONTROL_DISALLOW') {
+          return 'Spotify doesn\'t let me control your device\'s volume.. 😦';
+        } else {
+          throw err;
+        }
+      });
   }
 };
