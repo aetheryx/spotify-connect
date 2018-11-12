@@ -35,6 +35,15 @@ module.exports = {
       .then(r => r.body);
   },
 
+  setActiveDevice (link, deviceID) {
+    return put(this.BASE_URL)
+      .set('Authorization', `Bearer ${link.auth.access_token}`)
+      .send({
+        device_ids: [ deviceID ],
+        play: true
+      });
+  },
+
   setVolume (link, volume) {
     return put(`${this.BASE_URL}/volume`)
       .set('Authorization', `Bearer ${link.auth.access_token}`)
